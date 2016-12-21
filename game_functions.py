@@ -17,7 +17,14 @@ def check_events(ship):
 			if event.key == pygame.K_RIGHT:
 				
 				# Mova a espaçonave para a direita
-				ship.rect.centerx += 1
+				ship.set_moving_right(True)
+
+		elif event.type == pygame.KEYUP:
+
+			if event.key == pygame.K_RIGHT:
+				
+				ship.set_moving_right(False)
+
 
 def update_screen(ai_settings,screen,ship):
 	"""Atualiza as imagens na tela e alterna para a nova tela."""
