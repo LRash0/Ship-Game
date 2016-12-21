@@ -1,10 +1,9 @@
-# Usaremos esse módulo para sair do jogo quando o usuário desistir.
-import sys
 # o módulo pygame contém as funcionalidades necessárias para criar um jogo.
 import pygame
 
 from settings import Settings
 from ship import Ship
+import game_functions as gf
 def run_game():
 	# Inicializa o jogo e cria um objeto para a tela
 	pygame.init()
@@ -21,22 +20,9 @@ def run_game():
 
 	while True:
 
-		# Observe eventos de teclado e de mouse
-		for event in pygame.event.get():
-			
-			if event.type == pygame.QUIT:
-				sys.exit()
-
+		gf.check_events()
 		
-		# Redesenha a tela a cada passagem pelo laço.
-
-		# Por padrão,pygame cria uma tela preta
-		# Vamos definir a cor de fundo
-		# O método aceita apenas um argumento,uma cor.
-		# Preenchemos a cor de fundo com a cor escolhida.
-		screen.fill(ai_settings.get_bg_color())
-		ship.blitme()
-		# Deixa a tela mais recente visivel
-		pygame.display.flip()
+		gf.update_screen(ai_settings,screen,ship)
+		
 
 run_game()
