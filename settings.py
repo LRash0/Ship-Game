@@ -10,6 +10,11 @@ class Settings():
 		self.screen_height = 600
 		self.bg_color 	   = (230,230,230)
 		self.ship_speed_factor = 1.5
+		# Configurações dos projéteis
+		self.bullet_speed_factor = 1
+		self.bullet_width  = 3
+		self.bullet_height = 15
+		self.bullet_color = 60,60,60
 
 	def get_screen_width(self):
 
@@ -27,3 +32,19 @@ class Settings():
 	def get_ship_speed_factor(self):
 
 		return self.ship_speed_factor
+
+	def get_bullet_width(self):
+
+		return self.bullet_width
+
+	def get_bullet_heighht(self):
+
+		return self.bullet_height
+
+	def get_bullet_color(self):
+
+		return self.bullet_color
+
+	def get_bullet_speed_factor(self):
+
+		return set.get_bullet_speed_factor
