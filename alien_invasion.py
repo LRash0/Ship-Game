@@ -12,7 +12,7 @@ def run_game():
 		(ai_settings.get_screen_width(),ai_settings.get_screen_height()))
 	pygame.display.set_caption("Alien Invasion")
 	# Cria uma espaçonave
-	ship = Ship(screen)
+	ship = Ship(ai_settings,screen)
 
 	
 

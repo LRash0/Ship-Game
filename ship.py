@@ -4,9 +4,10 @@ class Ship():
 
 	"""Classe da aeronave."""
 
-	def __init__(self,screen):
+	def __init__(self,ai_settings,screen):
 		"""Inicializa a espaçonave e define sua posição inicial."""
 		self.screen = screen
+		self.ai_settings = ai_settings
 		# Carrega a imagem da espaçonave e obtém seu rect
 		self.image = pygame.image.load('images/ship.bmp')
 		self.rect = self.image.get_rect()
@@ -17,9 +18,13 @@ class Ship():
 		self.rect.centerx = self.screen_rect.centerx
 		self.rect.bottom  = self.screen_rect.bottom
 
+		# Armazena um valor decimal para o centro da espaçonave
+		self.center = float(self.rect.centerx)
+
 		#Flag do movimento
 		self.moving_right = False
 		self.moving_left = False
+
 
 	def set_moving_right(self,validation):
 		""" Permite  ou nao mover a nave para a direita.
@@ -57,11 +62,14 @@ class Ship():
 	
 		if self.get_moving_right():
 			
-			self.rect.centerx += 1
+			self.center += self.ai_settings.get_ship_speed_factor()
 
 		if self.get_moving_left():
 
-			self.rect.centerx -= 1
+			self.center -= self.ai_settings.get_ship_speed_factor()
+
+		# Atualiza o objeto rect de acordo com self.center
+		self.rect.centerx = self.center
 
 	def blitme(self):
 		"""Desenha a espaçonave em sua posição atual."""

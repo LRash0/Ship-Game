@@ -21,6 +21,7 @@ def check_events(ship):
 			
 			elif event.key == pygame.K_LEFT:
 				# Move a espaçonave para a esquerda
+				
 				ship.set_moving_left(True)
 
 
@@ -35,8 +36,6 @@ def check_events(ship):
 				# Quando soltar a tecla,parar a nave
 				
 				ship.set_moving_left(False)
-
-
 
 
 def update_screen(ai_settings,screen,ship):
