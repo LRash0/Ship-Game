@@ -60,11 +60,12 @@ class Ship():
 	def update(self):
 		"""Atualiza a posição da espaçonave de acordo com a flag de movimento."""
 	
-		if self.get_moving_right():
+		if ( self.get_moving_right() and
+		 (self.rect.right < self.screen_rect.right)):
 			
 			self.center += self.ai_settings.get_ship_speed_factor()
 
-		if self.get_moving_left():
+		if self.get_moving_left() and (self.rect.left > 0):
 
 			self.center -= self.ai_settings.get_ship_speed_factor()
 
