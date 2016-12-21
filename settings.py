@@ -15,6 +15,7 @@ class Settings():
 		self.bullet_width  = 3
 		self.bullet_height = 15
 		self.bullet_color = 60,60,60
+		self.bullets_allowed = 3
 
 	def get_screen_width(self):
 
@@ -48,3 +49,6 @@ class Settings():
 	def get_bullet_speed_factor(self):
 
 		return self.bullet_speed_factor
+
+	def get_bullets_allowed(self):
+		return self.bullets_allowed

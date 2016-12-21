@@ -6,6 +6,16 @@ from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 import game_functions as gf
+
+def clean_bullen_after_top(bullets):
+	""" Livra-se dos projéteis que desapareceram ."""
+
+	for bullet in bullets.copy():
+
+		if bullet.rect.bottom <= 0:
+			bullets.remove(bullet)
+
+	
 def run_game():
 	# Inicializa o jogo e cria um objeto para a tela
 	pygame.init()
@@ -26,13 +36,8 @@ def run_game():
 		gf.check_events(ai_settings,screen,ship,bullets)
 		ship.update()
 		bullets.update()
-		# Livra-se dos projéteis que desapareceram
-		for bullet in bullets.copy():
 
-			if bullet.rect.bottom <= 0:
-				bullets.remove(bullet)
-		print(len(bullets))
-
+		clean_bullen_after_top(bullets)
 
 		gf.update_screen(ai_settings,screen,ship,bullets)
 		
