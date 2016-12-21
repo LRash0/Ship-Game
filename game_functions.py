@@ -3,7 +3,9 @@ import sys
 
 import pygame
 
-def check_keydown_events(event,ship):
+from bullet import Bullet
+
+def check_keydown_events(event,ai_settings,screen,ship,bullets):
 	"""Responde a pressionamentos de tecla."""
 	
 	if event.key == pygame.K_RIGHT:
@@ -15,6 +17,13 @@ def check_keydown_events(event,ship):
 		# Move a espaçonave para a esquerda
 
 		ship.set_moving_left(True)
+
+	elif event.key == pygame.K_SPACE:
+
+		#Cria um novo projétil e o adiciona ao gupo de projéteis
+		new_bullet = Bullet(ai_settings,screen,ship)
+		bullets.add(new_bullet)
+
 
 
 def check_keyup_events(event,ship):
@@ -31,7 +40,7 @@ def check_keyup_events(event,ship):
 		ship.set_moving_left(False)
 
 
-def check_events(ship):
+def check_events(ai_settings,screen,ship,bullets):
 	"""Responde a eventos de pressionamento de teclas e de mouse."""
 	# Observe eventos de teclado e de mouse
 	for event in pygame.event.get():
@@ -42,7 +51,7 @@ def check_events(ship):
 
 		elif event.type == pygame.KEYDOWN:
 			
-			check_keydown_events(event,ship)
+			check_keydown_events(event,ai_settings,screen,ship,bullets)
 
 		elif event.type == pygame.KEYUP:
 
@@ -50,7 +59,7 @@ def check_events(ship):
 
 
 
-def update_screen(ai_settings,screen,ship):
+def update_screen(ai_settings,screen,ship,bullets):
 	"""Atualiza as imagens na tela e alterna para a nova tela."""
 	# Redesenha a tela a cada passagem pelo laço.
 
@@ -59,6 +68,11 @@ def update_screen(ai_settings,screen,ship):
 	# O método aceita apenas um argumento,uma cor.
 	# Preenchemos a cor de fundo com a cor escolhida.
 	screen.fill(ai_settings.get_bg_color())
+
+	# Redeseha todos os os projéteis atrás da espaçonave e dos alienígenas
+	for bullet in bullets:
+		bullet.draw_bullet()
+
 	ship.blitme()
 	# Deixa a tela mais recente visivel
 	pygame.display.flip()

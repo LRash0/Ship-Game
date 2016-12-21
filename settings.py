@@ -37,7 +37,7 @@ class Settings():
 
 		return self.bullet_width
 
-	def get_bullet_heighht(self):
+	def get_bullet_height(self):
 
 		return self.bullet_height
 
@@ -47,4 +47,4 @@ class Settings():
 
 	def get_bullet_speed_factor(self):
 
-		return set.get_bullet_speed_factor
+		return self.bullet_speed_factor
