@@ -6,8 +6,8 @@ class Settings():
 		"""Inicializa as configurações do jogo."""
 		# Configuração da tela
 
-		self.screen_width  = 1200
-		self.screen_height = 800
+		self.screen_width  = 800
+		self.screen_height = 600
 		self.bg_color 	   = (230,230,230)
 
 	def get_screen_width(self):
