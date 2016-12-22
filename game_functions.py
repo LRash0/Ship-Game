@@ -10,11 +10,11 @@ def fire_bullet(ai_settings,screen,ship,bullets):
 	"""Dispara m projétil se o limite ainda não foi alcançado."""
 
 	#Cria um novo projétil e o adiciona ao gupo de projéteis
-		if len(bullets)< ai_settings.get_bullets_allowed():
+	if len(bullets)< ai_settings.get_bullets_allowed():
 
-			new_bullet = Bullet(ai_settings,screen,ship)
-	
-			bullets.add(new_bullet)
+		new_bullet = Bullet(ai_settings,screen,ship)
+
+		bullets.add(new_bullet)
 
 
 def check_keydown_events(event,ai_settings,screen,ship,bullets):
@@ -32,7 +32,7 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
 
 	elif event.key == pygame.K_SPACE:
 
-		fire_bullet(ai_setting,screen,ship,bullets)
+		fire_bullet(ai_settings,screen,ship,bullets)
 
 	elif event.key == pygame.K_q:
 		sys.exit()
