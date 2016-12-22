@@ -73,7 +73,7 @@ def check_events(ai_settings,screen,ship,bullets):
 
 
 
-def update_screen(ai_settings,screen,ship,bullets):
+def update_screen(ai_settings,screen,ship,alien,bullets):
 	"""Atualiza as imagens na tela e alterna para a nova tela."""
 	# Redesenha a tela a cada passagem pelo laço.
 
@@ -88,5 +88,6 @@ def update_screen(ai_settings,screen,ship,bullets):
 		bullet.draw_bullet()
 
 	ship.blitme()
+	alien.blitme()
 	# Deixa a tela mais recente visivel
 	pygame.display.flip()
