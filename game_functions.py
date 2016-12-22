@@ -4,6 +4,7 @@ import sys
 import pygame
 
 from bullet import Bullet
+from alien import Alien
 
 
 def fire_bullet(ai_settings,screen,ship,bullets):
@@ -73,7 +74,7 @@ def check_events(ai_settings,screen,ship,bullets):
 
 
 
-def update_screen(ai_settings,screen,ship,alien,bullets):
+def update_screen(ai_settings,screen,ship,aliens,bullets):
 	"""Atualiza as imagens na tela e alterna para a nova tela."""
 	# Redesenha a tela a cada passagem pelo laço.
 
@@ -88,6 +89,28 @@ def update_screen(ai_settings,screen,ship,alien,bullets):
 		bullet.draw_bullet()
 
 	ship.blitme()
-	alien.blitme()
+	# Quando draw é chamado em um grupo,o Pygame dsenha automaticamente cada
+	# elemento do grupo na posição definida pel seu atributo rect.
+	aliens.draw(screen)
 	# Deixa a tela mais recente visivel
 	pygame.display.flip()
+
+
+
+def create_fleet(ai_settings,screen,aliens):
+	"""Cria uma frota completa de alienígenas."""
+	# Cria um alienígena e calcula o número de alienígens em uma linha
+	# O espaçemento entre os alienígenas é igual a largura de um alienígena
+
+	alien = Alien(ai_settings,screen)
+	alien_width = alien.rect.width
+	available_space_x = ai_settings.screen_width - 2 * alien_width
+	number_aliens_x = int(available_space_x / (2 * alien_width ))
+
+	# Cria a primeira linha de alienígenas
+	for alien_number in range(number_aliens_x):
+		# Cria um alienígena e posiciona na linha
+		alien   = Alien(ai_settings,screen)
+		alien.x = alien_width + 2 * alien_width * alien_number 
+		alien.rect.x = alien.x
+		aliens.add(alien)

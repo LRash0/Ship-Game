@@ -6,7 +6,6 @@ from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 import game_functions as gf
-from alien import Alien
 
 def clean_bullen_after_top(bullets):
 	""" Livra-se dos projéteis que desapareceram ."""
@@ -26,9 +25,14 @@ def run_game():
 	pygame.display.set_caption("Alien Invasion")
 	# Cria uma espaçonave
 	ship = Ship(ai_settings,screen)
+	
+	# Cria os grupos de bullets e alien
 	bullets = Group()
-	# Cria um alienígena
-	alien = Alien(ai_settings,screen)
+	aliens  = Group()
+	
+	# Cria a frota de alienígenas
+	gf.create_fleet(ai_settings,screen,aliens)
+	
 
 	
 
@@ -42,7 +46,7 @@ def run_game():
 
 		clean_bullen_after_top(bullets)
 
-		gf.update_screen(ai_settings,screen,ship,alien,bullets)
+		gf.update_screen(ai_settings,screen,ship,aliens,bullets)
 		
 
 run_game()
