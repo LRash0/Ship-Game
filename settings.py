@@ -16,6 +16,8 @@ class Settings():
 		self.bullet_height = 15
 		self.bullet_color = 60,60,60
 		self.bullets_allowed = 3
+		# Cofiguralções dos aliens
+		self.alien_speed_factor = 1
 
 	def get_screen_width(self):
 
@@ -51,4 +53,9 @@ class Settings():
 		return self.bullet_speed_factor
 
 	def get_bullets_allowed(self):
+		
 		return self.bullets_allowed
+
+	def get_alien_speed_factor(self):
+
+		return self.alien_speed_factor
