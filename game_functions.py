@@ -34,6 +34,9 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
 
 		fire_bullet(ai_setting,screen,ship,bullets)
 
+	elif event.key == pygame.K_q:
+		sys.exit()
+
 
 
 
