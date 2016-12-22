@@ -5,15 +5,11 @@ from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
+from game_stats import GameStats
 import game_functions as gf
 
-def clean_bullen_after_top(bullets):
-	""" Livra-se dos projéteis que desapareceram ."""
 
-	for bullet in bullets.copy():
 
-		if bullet.rect.bottom <= 0:
-			bullets.remove(bullet)
 
 	
 def run_game():
@@ -33,6 +29,8 @@ def run_game():
 	# Cria a frota de alienígenas
 	gf.create_fleet(ai_settings,screen,ship,aliens)
 	
+	# Cria uma instância para armazenar dados estatísticos do jogo
+	stats = GameStats(ai_settings)
 
 	
 
@@ -41,11 +39,11 @@ def run_game():
 	while True:
 
 		gf.check_events(ai_settings,screen,ship,bullets)
-		ship.update()
-		bullets.update()
-		clean_bullen_after_top(bullets)
-		gf.update_aliens(ai_settings,aliens)
-		gf.update_screen(ai_settings,screen,ship,aliens,bullets)
+		if stats.game_active:
+			ship.update()
+			gf.update_bullets(ai_settings,screen,ship,bullets,aliens)
+			gf.update_aliens(ai_settings,stats, screen,ship,aliens,bullets)
+			gf.update_screen(ai_settings,screen,ship,aliens,bullets)
 		
 
 run_game()

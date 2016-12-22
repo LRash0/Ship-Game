@@ -23,6 +23,8 @@ class Settings():
 		# Fleet direction igual a  1 representa direita;
 		# Fleet direction igual a -1 representa esquerda
 		self.fleet_direction = 1
+		# Configurações da espaçonave
+		self.ship_limit = 3
 
 	def get_screen_width(self):
 
