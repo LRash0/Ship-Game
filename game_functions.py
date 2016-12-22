@@ -141,6 +141,29 @@ def get_number_rows(ai_settings,ship_height,alien_height):
 	return number_rows
 
 
-def update_aliens(aliens):
-	"""Atualiza as posições de todos os alienígenas da frota."""
+def update_aliens(ai_settings,aliens):
+	"""Verifica se a frota está em uma das bordas e então 
+	atualiza as posições de todos os alienígenas da frota."""
+	check_fleet_edges(ai_settings,aliens)
 	aliens.update()
+
+
+def check_fleet_edges(ai_settings,aliens):
+	"""Responde apropriadamente se algum aliegnígena alcançou a borda."""
+
+	for alien in aliens.sprites():
+		
+		if alien.check_edges():
+		
+			change_fleet_direction(ai_settings,aliens)
+		
+			break
+
+def change_fleet_direction(ai_settings,aliens):
+	"""Faz toda a frota descer e muda a sua direção."""
+
+	for alien in aliens.sprites():
+
+		alien.rect.y += ai_settings.get_fleet_drop_speed()
+		ai_settings.set_fleet_direction()
+
