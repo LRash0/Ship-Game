@@ -18,6 +18,11 @@ class Settings():
 		self.bullets_allowed = 3
 		# Cofiguralções dos aliens
 		self.alien_speed_factor = 1
+		# Velocidade vertical
+		self.fleet_drop_speed = 10
+		# Fleet direction igual a  1 representa direita;
+		# Fleet direction igual a -1 representa esquerda
+		self.fleet_direction = 1
 
 	def get_screen_width(self):
 
@@ -59,3 +64,15 @@ class Settings():
 	def get_alien_speed_factor(self):
 
 		return self.alien_speed_factor
+
+
+	def get_fleet_drop_speed(self):
+
+		return self.fleet_drop_speed
+
+	def get_fleet_direction(self):
+
+		return self.fleet_direction
+
+	def set_fleet_direction(self):
+		self.fleet_direction *= -1
