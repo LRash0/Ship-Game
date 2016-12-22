@@ -6,6 +6,7 @@ from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 import game_functions as gf
+from alien import Alien
 
 def clean_bullen_after_top(bullets):
 	""" Livra-se dos projéteis que desapareceram ."""
@@ -26,6 +27,8 @@ def run_game():
 	# Cria uma espaçonave
 	ship = Ship(ai_settings,screen)
 	bullets = Group()
+	# Cria um alienígena
+	alien = Alien(ai_settings,screen)
 
 	
 
@@ -39,7 +42,7 @@ def run_game():
 
 		clean_bullen_after_top(bullets)
 
-		gf.update_screen(ai_settings,screen,ship,bullets)
+		gf.update_screen(ai_settings,screen,ship,alien,bullets)
 		
 
 run_game()
