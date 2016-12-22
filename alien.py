@@ -29,5 +29,21 @@ class Alien(Sprite):
 
 	def update(self):
 		"""Move o alienígena para a direita."""
-		self.x += self.ai_settings.get_alien_speed_factor()
+		self.x += (self.ai_settings.get_alien_speed_factor() * self.ai_settings.get_fleet_direction())
 		self.rect.x = self.x
+
+	
+	def check_edges(self):
+		"""Devolve True se o alienígena estiver na borda da tela."""
+		screen_rect = self.get_screen().get_rect()
+		if self.rect.right >= screen_rect.right:
+
+			return True
+
+		elif self.rect.left <= 0:
+
+			return True
+
+	def get_screen(self):
+
+		return self.screen
