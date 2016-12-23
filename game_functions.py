@@ -20,7 +20,7 @@ def fire_bullet(ai_settings,screen,ship,bullets):
 		bullets.add(new_bullet)
 
 
-def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,aliens):
+def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,aliens,sb):
 	"""Responde a pressionamentos de tecla."""
 	
 	if event.key == pygame.K_RIGHT:
@@ -41,7 +41,7 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,aliens):
 		sys.exit()
 
 	elif event.key == pygame.K_p:
-		start_game(ai_settings,screen,stats,ship,aliens,bullets)
+		start_game(ai_settings,screen,stats,ship,aliens,bullets,sb)
 
 
 
@@ -61,7 +61,7 @@ def check_keyup_events(event,ship):
 
 
 
-def start_game(ai_settings,screen,stats,ship,aliens,bullets):
+def start_game(ai_settings,screen,stats,ship,aliens,bullets,sb):
 	# Reinicia as configurações no jogo
 	ai_settings.initialize_dynamic_settings()
 
@@ -78,13 +78,18 @@ def start_game(ai_settings,screen,stats,ship,aliens,bullets):
 	aliens.empty()
 	bullets.empty()
 
+	# Reinicia as imagems do painel de pontuação
+	sb.prep_score()
+	sb.prep_high_score()
+	sb.prep_level()
+
 	# Cria uma ova frota e centraliza a espaçonave
 	create_fleet(ai_settings,screen,ship,aliens)
 	ship.center_ship()
 
 
 def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
-	mouse_x,mouse_y):
+	mouse_x,mouse_y,sb):
 	"""Inicia um novo jogo quando o jogador clicar em Play."""
 
 	button_clicked = play_button.rect.collidepoint(mouse_x,mouse_y)
@@ -102,6 +107,11 @@ def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
 		stats.reset_stats()
 		stats.game_active = True
 
+		# Reinicia as imagems do painel de pontuação
+		sb.prep_score()
+		sb.prep_high_score()
+		sb.prep_level()
+
 		# Esvazia a lista de alienígenas e de projéteis
 		aliens.empty()
 		bullets.empty()
@@ -111,7 +121,7 @@ def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
 		ship.center_ship()
 
 
-def check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets,):
+def check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets,sb):
 	"""Responde a eventos de pressionamento de teclas e de mouse."""
 	# Observe eventos de teclado e de mouse
 	for event in pygame.event.get():
@@ -123,13 +133,13 @@ def check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets,):
 		elif event.type == pygame.MOUSEBUTTONDOWN:
 			mouse_x,mouse_y = pygame.mouse.get_pos()
 			check_play_button(ai_settings,screen,stats,play_button,ship
-				,aliens,bullets,mouse_x,mouse_y)
+				,aliens,bullets,mouse_x,mouse_y,sb)
 
 
 		elif event.type == pygame.KEYDOWN:
 			
 			check_keydown_events(event,ai_settings,screen,ship,bullets,stats,
-				aliens)
+				aliens,sb)
 
 		elif event.type == pygame.KEYUP:
 
@@ -279,6 +289,10 @@ def check_bullet_alien_collisions(ai_settings,stats,screen,ship,aliens,bullets,
 		# Destrói os projéteis existentes e cria uma nova frota
 		bullets.empty()
 		ai_settings.increase_speed()
+		# Aumenta o nível
+		stats.level += 1
+		sb.prep_level()
+		sleep(0.2)
 		create_fleet(ai_settings,screen,ship,aliens)
 
 
