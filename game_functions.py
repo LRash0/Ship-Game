@@ -76,7 +76,7 @@ def check_events(ai_settings,screen,ship,bullets):
 
 
 
-def update_screen(ai_settings,screen,ship,aliens,bullets):
+def update_screen(ai_settings,screen,stats,ship,aliens,bullets,play_button):
 	"""Atualiza as imagens na tela e alterna para a nova tela."""
 	# Redesenha a tela a cada passagem pelo laço.
 
@@ -94,6 +94,12 @@ def update_screen(ai_settings,screen,ship,aliens,bullets):
 	# Quando draw é chamado em um grupo,o Pygame dsenha automaticamente cada
 	# elemento do grupo na posição definida pel seu atributo rect.
 	aliens.draw(screen)
+
+	# Desenha o botão Playse  jogo estiver inativo
+
+	if not stats.game_active:
+		play_button.draw_button()
+
 	# Deixa a tela mais recente visivel
 	pygame.display.flip()
 
