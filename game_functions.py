@@ -62,6 +62,10 @@ def check_keyup_events(event,ship):
 
 
 def start_game(ai_settings,screen,stats,ship,aliens,bullets):
+	# Reinicia as configurações no jogo
+	ai_settings.initialize_dynamic_settings()
+
+
 	# Oculta cursor do mouse quando o mouse estiver sobre a janela
 	pygame.mouse.set_visible(False)
 	
@@ -86,6 +90,9 @@ def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
 	button_clicked = play_button.rect.collidepoint(mouse_x,mouse_y)
 
 	if button_clicked and not stats.game_active:
+		# Reinicia as configurações no jogo
+		ai_settings.initialize_dynamic_settings()
+
 
 		# Oculta cursor do mouse quando o mouse estiver sobre a janela
 		pygame.mouse.set_visible(False)
@@ -263,6 +270,7 @@ def check_bullet_alien_collisions(ai_settings,screen,ship,aliens,bullets):
 	if len(aliens) == 0:
 		# Destrói os projéteis existentes e cria uma nova frota
 		bullets.empty()
+		ai_settings.increase_speed()
 		create_fleet(ai_settings,screen,ship,aliens)
 
 
