@@ -82,6 +82,7 @@ def start_game(ai_settings,screen,stats,ship,aliens,bullets,sb):
 	sb.prep_score()
 	sb.prep_high_score()
 	sb.prep_level()
+	sb.prep_ship()
 
 	# Cria uma ova frota e centraliza a espaçonave
 	create_fleet(ai_settings,screen,ship,aliens)
@@ -111,6 +112,7 @@ def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
 		sb.prep_score()
 		sb.prep_high_score()
 		sb.prep_level()
+		sb.prep_ship()
 
 		# Esvazia a lista de alienígenas e de projéteis
 		aliens.empty()
@@ -223,7 +225,7 @@ def get_number_rows(ai_settings,ship_height,alien_height):
 	return number_rows
 
 
-def update_aliens(ai_settings,stats,screen,ship,aliens,bullets):
+def update_aliens(ai_settings,stats,screen,ship,aliens,bullets,sb):
 	"""Verifica se a frota está em uma das bordas e então 
 	atualiza as posições de todos os alienígenas da frota."""
 	check_fleet_edges(ai_settings,aliens)
@@ -231,9 +233,9 @@ def update_aliens(ai_settings,stats,screen,ship,aliens,bullets):
 
 	# Verifica se houve colisões entre alienígenas e a espaçonave
 	if pygame.sprite.spritecollideany(ship,aliens):
-		ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
+		ship_hit(ai_settings,stats,screen,ship,aliens,bullets,sb)
 	# Verifica se há algum alienígena que atingiu a parte interior da tela
-	check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets)
+	check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets,sb)
 
 
 def check_fleet_edges(ai_settings,aliens):
@@ -296,7 +298,7 @@ def check_bullet_alien_collisions(ai_settings,stats,screen,ship,aliens,bullets,
 		create_fleet(ai_settings,screen,ship,aliens)
 
 
-def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
+def ship_hit(ai_settings,stats,screen,ship,aliens,bullets,sb):
 	"""Responde ao fato de a espaçonave ter sido atingida pr um alienígena."""
 	# Decrementa ships_left
 	if stats.ships_left >0:
@@ -305,6 +307,10 @@ def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
 		# Esvazia alista de alienígenas e de projéteis
 		aliens.empty()
 		bullets.empty()
+		
+		# Atualiza o painel de pontuações
+		sb.prep_ship()
+
 
 		# Cria uma nova frota e centraliza a espaçonave
 		create_fleet(ai_settings,screen,ship,aliens)
@@ -317,14 +323,14 @@ def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
 		# Deixa o curso visível
 		pygame.mouse.set_visible(True)
 
-def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets):
+def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets,sb):
 	"""Verifica se algum alienígena alcançou a parte inferior da tela."""
 	screen_rect = screen.get_rect()
 	for alien in aliens.sprites():
 		if alien.rect.bottom >= screen_rect.bottom:
 			# Trata esse caso do mesmo mod que é feito quando a espaçonave é
 			# atingida
-			ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
+			ship_hit(ai_settings,stats,screen,ship,aliens,bullets,sb)
 			break
 
 def check_high_score(stats,sb):
