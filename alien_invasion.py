@@ -6,6 +6,7 @@ from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 from game_stats import GameStats
+from button import Button
 import game_functions as gf
 
 
@@ -32,6 +33,8 @@ def run_game():
 	# Cria uma instância para armazenar dados estatísticos do jogo
 	stats = GameStats(ai_settings)
 
+	# Criando o botão play
+	play_button = Button(ai_settings,screen,"Play")
 	
 
 	# Inicia o laço principal do jogo
@@ -43,7 +46,9 @@ def run_game():
 			ship.update()
 			gf.update_bullets(ai_settings,screen,ship,bullets,aliens)
 			gf.update_aliens(ai_settings,stats, screen,ship,aliens,bullets)
-			gf.update_screen(ai_settings,screen,ship,aliens,bullets)
+		
+		gf.update_screen(ai_settings,screen,stats,ship,aliens,bullets,
+			play_button)
 		
 
 run_game()
