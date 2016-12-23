@@ -38,6 +38,7 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,aliens,sb):
 		fire_bullet(ai_settings,screen,ship,bullets)
 
 	elif event.key == pygame.K_q:
+		file.stored_high_score()
 		sys.exit()
 
 	elif event.key == pygame.K_p:
@@ -123,13 +124,15 @@ def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
 		ship.center_ship()
 
 
-def check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets,sb):
+def check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets,sb,file):
 	"""Responde a eventos de pressionamento de teclas e de mouse."""
 	# Observe eventos de teclado e de mouse
 	for event in pygame.event.get():
 		
 		if event.type == pygame.QUIT:
 			
+			file.stored_high_score()
+
 			sys.exit()
 
 		elif event.type == pygame.MOUSEBUTTONDOWN:
