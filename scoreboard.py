@@ -19,7 +19,16 @@ class Scoreboard():
 
 	def prep_score(self):
 		"""Transforma a pontuação e uma imagem renderizada."""
-		score_str = str(self.stats.score)
+		# A função round arredonda um número decimal com uma quantidade definida
+		# de casas decimais especificada como o segundo argumento.No entanto
+		# ,se um número negativo for passado como segundo argumento,round()
+		# arredondará o valor para o múltiplo mais próximo de 10,100,1000 e 
+		# assim por diante
+		rounded_score =  round(self.stats.score,-1)
+		# Uma diretiva formatação de string diz a Python para inserir vírgulas
+		# nos números ao converter um valor númerico em uma string
+		score_str = "{:,}".format(rounded_score)
+		
 		self.score_image = self.font.render(score_str,True,self.text_color,
 			self.ai_settings.bg_color)
 
