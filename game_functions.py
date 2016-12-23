@@ -65,6 +65,9 @@ def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
 	button_clicked = play_button.rect.collidepoint(mouse_x,mouse_y)
 
 	if button_clicked and not stats.game_active:
+
+		# Oculta cursor do mouse quando o mouse estiver sobre a janela
+		pygame.mouse.set_visible(False)
 		
 
 		# Reinicia o jogo
@@ -259,6 +262,8 @@ def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
 		sleep(0.5)
 	else:
 		stats.game_active = False
+		# Deixa o curso visível
+		pygame.mouse.set_visible(True)
 
 def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets):
 	"""Verifica se algum alienígena alcançou a parte inferior da tela."""
