@@ -8,7 +8,6 @@ from ship import Ship
 from game_stats import GameStats
 from button import Button
 from scoreboard import Scoreboard
-from file import File
 import game_functions as gf
 
 
@@ -40,7 +39,7 @@ def run_game():
 	play_button = Button(ai_settings,screen,"Play")
 
 	# Cria o arquivo
-	file = File(stats)
+	
 	
 
 	# Inicia o laço principal do jogo
@@ -48,10 +47,10 @@ def run_game():
 	while True:
 
 		
-		file.read_high_score()
-		gf.check_events(ai_settings,screen,stats,play_button,ship,aliens,
-			bullets,sb,file)
 		
+		gf.check_events(ai_settings,screen,stats,play_button,ship,aliens,
+			bullets,sb)
+
 		if stats.game_active:
 			ship.update()
 			gf.update_bullets(ai_settings,stats,screen,ship,bullets,aliens,sb)

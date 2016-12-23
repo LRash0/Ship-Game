@@ -1,22 +1,27 @@
 class File():
 	"""Armazena o maior score registrado."""
 
-	def __init__(self,stats):
+	def __init__(self):
 		self.filename = 'high_score_stored.txt'
-		self.stats = stats
+		
 
-	def stored_high_score(self):
+	def stored_high_score(self,high_score):
 		"""Guarda o maior score no arquivo."""
 		
 		with open(self.filename,'w') as f_obj:
-				f_obj.write(str(self.stats.high_score))
+				f_obj.write(str(high_score))
 	
 
 	def read_high_score(self):
 		"""Ler o maior score e coloca na varíavel."""
+		try:
+			with open(self.filename) as f_obj:
+				high_score = f_obj.read()
 		
-		with open(self.filename) as f_obj:
-			high_score = f_obj.read()
-			
-		self.stats.high_score = int(high_score)
+		except FileNotFoundError:
+
+			return 0
+		else:	
+		
+			return int(high_score)
 
