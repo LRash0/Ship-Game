@@ -261,9 +261,7 @@ def update_bullets(ai_settings,stats,screen,ship,bullets,aliens,sb):
 	check_bullet_alien_collisions(ai_settings,stats,screen,ship,aliens,bullets,
 		sb)
 
-	
 
-	
 
 def check_bullet_alien_collisions(ai_settings,stats,screen,ship,aliens,bullets,
 	sb):
@@ -276,7 +274,7 @@ def check_bullet_alien_collisions(ai_settings,stats,screen,ship,aliens,bullets,
 		for alien in collisions.values():
 			stats.score += ai_settings.alien_points * len(alien)
 		sb.prep_score()
-
+	check_high_score(stats,sb)
 	if len(aliens) == 0:
 		# Destrói os projéteis existentes e cria uma nova frota
 		bullets.empty()
@@ -314,3 +312,9 @@ def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets):
 			# atingida
 			ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
 			break
+
+def check_high_score(stats,sb):
+	"""Verifica se há uma nova pontuação máxima."""
+	if stats.score > stats.high_score:
+		stats.high_score = stats.score
+		sb.prep_high_score()
