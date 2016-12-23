@@ -20,7 +20,7 @@ def fire_bullet(ai_settings,screen,ship,bullets):
 		bullets.add(new_bullet)
 
 
-def check_keydown_events(event,ai_settings,screen,ship,bullets):
+def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,aliens):
 	"""Responde a pressionamentos de tecla."""
 	
 	if event.key == pygame.K_RIGHT:
@@ -40,6 +40,9 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
 	elif event.key == pygame.K_q:
 		sys.exit()
 
+	elif event.key == pygame.K_p:
+		start_game(ai_settings,screen,stats,ship,aliens,bullets)
+
 
 
 
@@ -56,6 +59,24 @@ def check_keyup_events(event,ship):
 		
 		ship.set_moving_left(False)
 
+
+
+def start_game(ai_settings,screen,stats,ship,aliens,bullets):
+	# Oculta cursor do mouse quando o mouse estiver sobre a janela
+	pygame.mouse.set_visible(False)
+	
+
+	# Reinicia o jogo
+	stats.reset_stats()
+	stats.game_active = True
+
+	# Esvazia a lista de alienígenas e de projéteis
+	aliens.empty()
+	bullets.empty()
+
+	# Cria uma ova frota e centraliza a espaçonave
+	create_fleet(ai_settings,screen,ship,aliens)
+	ship.center_ship()
 
 
 def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
@@ -83,7 +104,7 @@ def check_play_button(ai_settings,screen,stats,play_button,ship,aliens,bullets,
 		ship.center_ship()
 
 
-def check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets):
+def check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets,):
 	"""Responde a eventos de pressionamento de teclas e de mouse."""
 	# Observe eventos de teclado e de mouse
 	for event in pygame.event.get():
@@ -100,7 +121,8 @@ def check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets):
 
 		elif event.type == pygame.KEYDOWN:
 			
-			check_keydown_events(event,ai_settings,screen,ship,bullets)
+			check_keydown_events(event,ai_settings,screen,ship,bullets,stats,
+				aliens)
 
 		elif event.type == pygame.KEYUP:
 
