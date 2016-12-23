@@ -7,6 +7,7 @@ from settings import Settings
 from ship import Ship
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 import game_functions as gf
 
 
@@ -32,6 +33,7 @@ def run_game():
 	
 	# Cria uma instância para armazenar dados estatísticos do jogo
 	stats = GameStats(ai_settings)
+	sb = Scoreboard(ai_settings,screen,stats)
 
 	# Criando o botão play
 	play_button = Button(ai_settings,screen,"Play")
@@ -49,7 +51,7 @@ def run_game():
 			gf.update_aliens(ai_settings,stats, screen,ship,aliens,bullets)
 		
 		gf.update_screen(ai_settings,screen,stats,ship,aliens,bullets,
-			play_button)
+			play_button,sb)
 		
 
 run_game()
